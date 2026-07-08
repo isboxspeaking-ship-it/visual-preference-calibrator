@@ -40,7 +40,7 @@ module.exports = async function handler(req, res) {
     const rate = dir => (directions.find(item => item.dir === dir)?.rate || 0) / 100;
     const fields = {
       '客户姓名': customerName,
-      '项目名称': String(body.projectName || '赢稼AI').slice(0, 80),
+      '项目名称': String(body.projectName || '该项目').slice(0, 80),
       '提交时间': Number(body.submittedAt) || Date.now(),
       '优先方向': String(body.winner || '').slice(0, 120),
       '方向A喜欢率': rate('A'),
