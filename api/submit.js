@@ -1,6 +1,17 @@
 const MAX_REPORT_LENGTH = 90000;
 
 module.exports = async function handler(req, res) {
+  const allowedOrigins = new Set([
+    'https://yingjia-ai-visual-calibration.vercel.app',
+    'https://isboxspeaking-ship-it.github.io'
+  ]);
+  const origin = req.headers.origin;
+  if (allowedOrigins.has(origin)) res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ ok: false, message: '仅支持提交结果' });
